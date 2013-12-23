@@ -6,7 +6,7 @@ import smtplib
 import os 
 
 root = Tk()
-root.title("Simple E-mail client)
+root.title("Simple E-mail client")
 
 mainframe = ttk.Frame(root, padding = " 5 5 15 15")
 mainframe.grid(column=9, row=9, sticky=(N,W,E,S))
@@ -14,15 +14,35 @@ mainframe.columnconfigure(0,weight=1)
 mainframe.rowconfigure( 0, weight=1)
 
 
-def  	start_spam(*args):
-	try: 
-		login_user = username.get()
-		login_pass = password.get()
-		spam_no = spam_number.get()
-		msg = message.get()
-		reciver = to_adress.get()
-		
-		server
+def  start_spam(*args):
+    try: 
+        login_username = str(username.get())
+        login_password = str( password.get())
+        spam_no = str(spam_number.get())
+        msg = str(message.get())
+        reciver = str(to_adress.get())
+
+---------------------
+
+        server = smtplib.SMTP('smtp.gmail.com',587)
+#establish connection 
+        server.ehlo()
+        server.starttls()
+        server.ehlo()
+        server.login(login_username, login_password)
+        
+#send mail
+        server.sendmail(sender,recpient,msg)  
+        nmessagebox.showinfo("Complete: You're message has been successfully sent")
+        os._exit(1)
+
+    except:
+        
+        messagebox.showerror("Sorry, We are not able to send you're message at this time. \n Try again Later")
+
+   
+
+--------------------
 
 username = StringVar()
 password = StringVar()
@@ -35,7 +55,7 @@ message = StringVar()
 ttk.Label(mainframe, text="Login Email: ").grid(column=1, row=1, sticky=W)
 ttk.Label(mainframe, text="Login Password: ").grid(column=1, row=2, sticky=W)
 ttk.Label(mainframe, text="Your message: ").grid(column=1, row=3, sticky=W)
-ttk.Label(mainframe, text="Spam number:").grid(column=1, row=4, sticky=W)
+
 
 
 
@@ -49,8 +69,7 @@ password_entry.grid(column=2, row=2, sticky=W)
 message_entry = ttk.Entry(mainframe, width=7, height= 20, textvariable=message)
 message_entry.grid(column=2, row=3, sticky=W) 
 
-span_entry = ttk.Entry(mainframe, width=7, textvariable=spam_number)
-spam_entry.grid(column=2, row=4, sticky=W)
+
 
 
 
