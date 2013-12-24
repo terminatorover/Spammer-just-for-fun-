@@ -14,7 +14,7 @@ mainframe.columnconfigure(0,weight=1)
 mainframe.rowconfigure( 0, weight=1)
 
 
-def  start_spam(*args):
+def  send(*args):
     try: 
         login_username = str(username.get())
         login_password = str( password.get())
